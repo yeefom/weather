@@ -4,6 +4,7 @@
   "description": "A React weather app",
   "main": "index.js",
   "scripts": {
+    "production": "webpack -p",
     "start": "webpack-dev-server"
   },
   "repository": {
