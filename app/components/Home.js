@@ -1,32 +1,45 @@
 var React = require('react');
+var PropTypes = React.PropTypes;
 
 function Button(props) {
   return (
-    <button type='button'>
+    <button
+      type='button'
+      onClick={props.onSubmitCity}>
       {props.children}
     </button>
   );
 }
 
-function Input() {
+function Input(props) {
   return (
     <input
-      placeholder='San Francisco'
-      type='text' />
+      placeholder={props.city}
+      type='text'
+      onChange={props.onUpdateCity} />
   );
 }
 
-function Home() {
+function Home(props) {
   return (
     <div>
       <h1>Weather</h1>
       <h3>Enter a City and State</h3>
-      <Input/>
-      <Button>
+      <Input
+        onUpdateCity={props.onUpdateCity}
+        city={props.city} />
+      <Button
+        onSubmitCity={props.onSubmitCity}>
         Get Weather
       </Button>
     </div>
   );
 }
+
+Home.propTypes = {
+  onUpdateCity: PropTypes.func.isRequired,
+  onSubmitCity: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired
+};
 
 module.exports = Home;
