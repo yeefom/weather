@@ -23,7 +23,6 @@ function Input(props) {
 function Home(props) {
   return (
     <div>
-      <h1>Weather</h1>
       <h3>Enter a City and State</h3>
       <Input
         onUpdateCity={props.onUpdateCity}
