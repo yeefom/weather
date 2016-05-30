@@ -9,19 +9,18 @@ var ForecastContainer = React.createClass({
     };
   },
   componentDidMount: function() {
-    OpenWeatherUtil(this.props.routeParams.city).then(function(data) {
+    OpenWeatherUtil(this.props.routeParams.city).then(function(res) {
       this.setState({
-        weather: {
-          city: data.data.name,
-          temp: data.data.main.temp
-        }
+        city: res.data.city.name,
+        weather: res.data.list
       });
     }.bind(this));
   },
   render: function() {
     return (
       <Forecast
-        weather={this.state.weather}/>
+        weather={this.state.weather}
+        city={this.state.city} />
     );
   }
 });
