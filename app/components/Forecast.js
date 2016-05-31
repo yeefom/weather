@@ -1,7 +1,8 @@
 var React = require('react');
+var PropTypes = React.PropTypes;
 var dateUtil = require('../utilities/date');
 
-function ForecastItem(props) {
+function WeatherItem(props) {
   return (
     <li>{props.date}: {props.weather}</li>
   );
@@ -11,9 +12,9 @@ function Weather(props) {
   return (
     <ul>
       {
-        Object.keys(props.weather).length !== 0 &&
+        props.weather &&
           props.weather.map(function(weather) {
-            return <ForecastItem key={weather.dt} date={dateUtil(weather.dt)} weather={weather.temp.day} />;
+            return <WeatherItem key={weather.dt} date={dateUtil(weather.dt)} weather={weather.temp.day} />;
           })
       }
     </ul>
@@ -28,5 +29,10 @@ function Forecast(props) {
     </div>
   );
 }
+
+Forecast.propTypes = {
+  city: PropTypes.string,
+  weather: PropTypes.array
+};
 
 module.exports = Forecast;

@@ -4,9 +4,7 @@ var OpenWeatherUtil = require('../utilities/OpenWeather');
 
 var ForecastContainer = React.createClass({
   getInitialState: function () {
-    return {
-      weather: {}
-    };
+    return {};
   },
   componentDidMount: function() {
     OpenWeatherUtil(this.props.routeParams.city).then(function(res) {
