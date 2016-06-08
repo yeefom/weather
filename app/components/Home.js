@@ -1,34 +1,33 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
+import React, {PropTypes} from 'react';
 
-function Button(props) {
+function Button({onSubmitCity, children}) {
   return (
     <button
       type='button'
-      onClick={props.onSubmitCity}>
-      {props.children}
+      onClick={onSubmitCity}>
+      {children}
     </button>
   );
 }
 
-function Input(props) {
+function Input({city, onUpdateCity}) {
   return (
     <input
-      placeholder={props.city}
+      placeholder={city}
       type='text'
-      onChange={props.onUpdateCity} />
+      onChange={onUpdateCity} />
   );
 }
 
-function Home(props) {
+function Home({onUpdateCity, city, onSubmitCity}) {
   return (
     <div>
       <h3>Enter a City and State</h3>
       <Input
-        onUpdateCity={props.onUpdateCity}
-        city={props.city} />
+        onUpdateCity={onUpdateCity}
+        city={city} />
       <Button
-        onSubmitCity={props.onSubmitCity}>
+        onSubmitCity={onSubmitCity}>
         Get Weather
       </Button>
     </div>
@@ -41,4 +40,4 @@ Home.propTypes = {
   city: PropTypes.string.isRequired
 };
 
-module.exports = Home;
+export default Home;

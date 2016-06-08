@@ -1,36 +1,35 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
-var dateUtil = require('../utilities/date');
+import React, {PropTypes} from 'react';
+import dateUtil from '../utilities/date';
 
-function WeatherItem(props) {
+function WeatherItem({handleClick, date, weather}) {
   return(
-    <li onClick={props.handleClick}>{props.date}: {props.weather}</li>
+    <li onClick={handleClick}>{date}: {weather}</li>
   );
 }
 
-function Weather(props) {
+function Weather({weather, handleClick}) {
   return (
     <ul>
-      {props.weather &&
-        props.weather.map(function(weather) {
-          var date = dateUtil(weather.dt);
+      {weather &&
+        weather.map(weatherItem => {
+          const date = dateUtil(weatherItem.dt);
           return <WeatherItem
-            key={weather.dt}
+            key={weatherItem.dt}
             date={date}
-            weather={weather.temp.day}
-            handleClick={props.handleClick.bind(null, date, weather.temp)} />;
+            weather={weatherItem.temp.day}
+            handleClick={handleClick.bind(null, date, weatherItem.temp)} />;
         })}
     </ul>
   );
 }
 
-function Forecast(props) {
+function Forecast({city, weather, handleClick}) {
   return (
     <div>
-      <h3>{props.city}</h3>
+      <h3>{city}</h3>
       <Weather
-        weather={props.weather}
-        handleClick={props.handleClick} />
+        weather={weather}
+        handleClick={handleClick} />
     </div>
   );
 }
@@ -40,4 +39,4 @@ Forecast.propTypes = {
   weather: PropTypes.array
 };
 
-module.exports = Forecast;
+export default Forecast;

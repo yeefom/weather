@@ -1,15 +1,15 @@
-var React = require('react');
+import React from 'react';
 
-function Detail(props) {
+function Detail({city, date, weather}) {
   return (
     <div>
-      <h3>{props.city}</h3>
-      <p>{props.date}</p>
-      <p>Temp: {props.weather.day}</p>
-      <p>Max: {props.weather.max}</p>
-      <p>Min: {props.weather.min}</p>
+      <h3>{city}</h3>
+      <p>{date}</p>
+      <p>Temp: {weather.day}</p>
+      <p>Max: {weather.max}</p>
+      <p>Min: {weather.min}</p>
     </div>
   );
 }
 
-module.exports = Detail;
+export default Detail;
