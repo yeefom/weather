@@ -1,5 +1,5 @@
-var key = 'APIKEY';
+const key = 'APIKEY';
 
-module.exports = function() {
+export default function() {
   return key;
-};
+}

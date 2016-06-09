@@ -1,32 +1,34 @@
-var React = require('react');
-var Home = require('../components/Home');
+import React, {Component} from 'react';
+import Home from '../components/Home';
 
-var HomeContainer = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-  getInitialState: function() {
-    return {
+class HomeContainer extends Component {
+  constructor() {
+    super();
+    this.state = {
       city: 'San Francisco'
     };
-  },
-  hanldeSubmitCity: function(e) {
+  }
+  hanldeSubmitCity(e) {
     e.preventDefault();
-    this.context.router.push('/forecast/' + this.state.city);
-  },
-  handleUpdateCity: function(e) {
+    this.context.router.push(`/forecast/${this.state.city}`);
+  }
+  handleUpdateCity(e) {
     this.setState({
       city: e.target.value
     });
-  },
-  render: function() {
+  }
+  render() {
     return (
       <Home
-        onUpdateCity={this.handleUpdateCity}
-        onSubmitCity={this.hanldeSubmitCity}
+        onUpdateCity={e => this.handleUpdateCity(e)}
+        onSubmitCity={e => this.hanldeSubmitCity(e)}
         city={this.state.city} />
     );
   }
-});
+}
 
-module.exports = HomeContainer;
+HomeContainer.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
+
+export default HomeContainer;

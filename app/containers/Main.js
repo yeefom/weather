@@ -1,12 +1,12 @@
-var React = require('react');
+import React from 'react';
 
-function Main(props) {
+function Main({children}) {
   return (
     <div>
       <h1>Weather</h1>
-      {props.children}
+      {children}
     </div>
   );
 }
 
-module.exports = Main;
+export default Main;

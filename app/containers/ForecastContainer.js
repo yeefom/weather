@@ -1,41 +1,46 @@
-var React = require('react');
-var Forecast = require('../components/Forecast');
-var OpenWeatherUtil = require('../utilities/OpenWeather');
+import React, {Component} from 'react';
+import Forecast from '../components/Forecast';
+import OpenWeatherUtil from '../utilities/OpenWeather';
 
-var ForecastContainer = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-  getInitialState: function () {
-    return {};
-  },
-  componentDidMount: function() {
-    OpenWeatherUtil(this.props.routeParams.city).then(function(res) {
+class ForecastContainer extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+  async componentDidMount() {
+    try {
+      const {data} = await OpenWeatherUtil(this.props.routeParams.city);
       this.setState({
-        city: res.data.city.name,
-        weather: res.data.list
+        city: data.city.name,
+        weather: data.list
       });
-    }.bind(this));
-  },
-  handleClick: function(date, weather) {
-    var city = this.state.city;
+    } catch(err) {
+      console.error(`ERR in OpenWeatherUtil: ${err}`);
+    }
+  }
+  handleClick(date, weather) {
+    const city = this.state.city;
     this.context.router.push({
-      pathname: '/detail/' + city,
+      pathname: `/detail/${city}`,
       state: {
-        city: city,
-        date: date,
-        weather: weather
+        city,
+        date,
+        weather
       }
     });
-  },
-  render: function() {
+  }
+  render() {
     return (
       <Forecast
         weather={this.state.weather}
         city={this.state.city}
-        handleClick={this.handleClick} />
+        handleClick={(date, weather) => this.handleClick(date, weather)} />
     );
   }
-});
+}
 
-module.exports = ForecastContainer;
+ForecastContainer.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
+
+export default ForecastContainer;
