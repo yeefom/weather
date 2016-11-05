@@ -1,25 +1,32 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: __dirname + '/app/index.html',
-  filename: 'index.html',
-  inject: 'body'
-});
+var webpack = require('webpack');
+var path = require('path');
+// var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+//   template: __dirname + '/app/index.html',
+//   filename: 'index.html',
+//   inject: 'body'
+// });
 
 module.exports = {
+  devtool: 'eval',
   entry: [
     'babel-polyfill',
     './app/index.js'
   ],
   output: {
-    path: __dirname + '/dist',
-    filename: 'index_bundle.js'
+    path: path.resolve(__dirname, '/dist'),
+    filename: 'index_bundle.js',
+    publicPath: '/dist/'
   },
   plugins: [
-    HtmlWebpackPluginConfig
+    // HtmlWebpackPluginConfig
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
-    loaders: [
-      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
-    ]
+    loaders: [{
+      test: /\.js$/,
+      include: path.resolve(__dirname, 'src'),
+      loader: ['react-hot', 'babel-loader']
+    }]
   }
 };
